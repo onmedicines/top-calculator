@@ -85,6 +85,9 @@ numbers.addEventListener("click", (e) => {
 });
 
 operators.addEventListener("click", (e) => {
+  if (operatorEntered === true) {
+    equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
+  }
   num1Entered = true;
   operatorEntered = true;
   operator = e.target.id;
@@ -117,8 +120,10 @@ clear.addEventListener("click", () => {
         operatorEntered = true;
       }
     }
+    equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
   } else {
     num1 = Math.floor(num1 / 10);
+    equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
+    answerDisplay.textContent = equationDisplay.textContent;
   }
-  equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
 });
