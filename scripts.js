@@ -1,6 +1,6 @@
 // reference to elements
-const displayForAnswer = document.querySelector(".answer");
-const displayForEquation = document.querySelector(".equation");
+const answerDisplay = document.querySelector(".answer");
+const equationDisplay = document.querySelector(".equation");
 const numbers = document.querySelector(".numbers");
 const operators = document.querySelector(".operators");
 const equals = document.querySelector("#equals");
@@ -51,7 +51,7 @@ function displayAnswerOnCalculator() {
   calculatedOutput = calculate(num1, operator, num2);
   num1 = calculatedOutput;
   num2 = 0;
-  displayForAnswer.textContent = calculatedOutput;
+  answerDisplay.textContent = calculatedOutput;
 }
 
 function displayExpressionOnCalculator(str) {
@@ -69,7 +69,7 @@ function displayExpressionOnCalculator(str) {
       str = "*";
       break;
   }
-  displayForEquation.textContent += ` ${str}`;
+  equationDisplay.textContent += `${str}`;
 }
 
 // event listeners
@@ -93,12 +93,32 @@ operators.addEventListener("click", (e) => {
 
 equals.addEventListener("click", (e) => {
   displayAnswerOnCalculator();
+  equationDisplay.textContent = "";
+  displayExpressionOnCalculator(num1);
 });
 
 accumulatorClear.addEventListener("click", () => {
   num1 = num2 = 0;
   num1Entered = false;
   operator = "";
-  displayForAnswer.textContent = "";
-  displayForEquation.textContent = "";
+  answerDisplay.textContent = "";
+  equationDisplay.textContent = "";
+});
+
+clear.addEventListener("click", () => {
+  if (num1Entered) {
+    if (operatorEntered) {
+      operator = "";
+      operatorEntered = false;
+      num1Entered = false;
+    } else {
+      num2 = Math.floor(num2 / 10);
+      if (num2 === 0) {
+        operatorEntered = true;
+      }
+    }
+  } else {
+    num1 = Math.floor(num1 / 10);
+  }
+  equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
 });
