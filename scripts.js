@@ -7,10 +7,9 @@ const equals = document.querySelector("#equals");
 
 // global variables
 let num1, num2;
+num1 = num2 = 0;
 let operator = "";
 let num1Entered = false;
-let equalsPressed = false;
-let operatorPressed = false;
 
 // calculation functions
 function add(a, b) {
@@ -48,6 +47,7 @@ function calculate(num1, operator, num2) {
 function displayAnswerOnCalculator() {
   calculatedOutput = calculate(num1, operator, num2);
   num1 = calculatedOutput;
+  num2 = 0;
   displayForAnswer.textContent = calculatedOutput;
 }
 
@@ -73,15 +73,15 @@ function displayExpressionOnCalculator(str) {
 numbers.addEventListener("click", (e) => {
   numberPressed = +e.target.id;
   if (num1Entered === false) {
-    num1Entered = true;
-    num1 = numberPressed;
+    num1 = num1 * 10 + numberPressed;
   } else {
-    num2 = numberPressed;
+    num2 = num2 * 10 + numberPressed;
   }
   displayExpressionOnCalculator(numberPressed);
 });
 
 operators.addEventListener("click", (e) => {
+  num1Entered = true;
   operator = e.target.id;
   displayExpressionOnCalculator(operator);
 });
