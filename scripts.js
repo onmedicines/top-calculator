@@ -1,5 +1,6 @@
 // reference to elements
 const displayForAnswer = document.querySelector(".answer");
+const displayForEquation = document.querySelector(".equation");
 const numbers = document.querySelector(".numbers");
 const operators = document.querySelector(".operators");
 const equals = document.querySelector("#equals");
@@ -9,6 +10,7 @@ let num1, num2;
 let operator = "";
 let num1Entered = false;
 let equalsPressed = false;
+let operatorPressed = false;
 
 // calculation functions
 function add(a, b) {
@@ -43,6 +45,30 @@ function calculate(num1, operator, num2) {
   return output;
 }
 
+function displayAnswerOnCalculator() {
+  calculatedOutput = calculate(num1, operator, num2);
+  num1 = calculatedOutput;
+  displayForAnswer.textContent = calculatedOutput;
+}
+
+function displayExpressionOnCalculator(str) {
+  switch (str) {
+    case "add":
+      str = "+";
+      break;
+    case "subtract":
+      str = "-";
+      break;
+    case "divide":
+      str = "/";
+      break;
+    case "multiply":
+      str = "*";
+      break;
+  }
+  displayForEquation.textContent += ` ${str}`;
+}
+
 // event listeners
 numbers.addEventListener("click", (e) => {
   numberPressed = +e.target.id;
@@ -52,10 +78,14 @@ numbers.addEventListener("click", (e) => {
   } else {
     num2 = numberPressed;
   }
+  displayExpressionOnCalculator(numberPressed);
 });
 
 operators.addEventListener("click", (e) => {
   operator = e.target.id;
+  displayExpressionOnCalculator(operator);
 });
 
-equals.addEventListener("click", (e) => {});
+equals.addEventListener("click", (e) => {
+  displayAnswerOnCalculator();
+});
