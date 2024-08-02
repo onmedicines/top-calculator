@@ -27,6 +27,7 @@ function calculate(num1, operator, num2) {
       output = multiply(num1, num2);
       break;
   }
+  return output;
 }
 
-calculate("2", "*", "5");
+calculate("2", "/", "5");
