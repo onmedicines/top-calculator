@@ -12,6 +12,7 @@ let num1, num2;
 num1 = num2 = 0;
 let operator = "";
 let num1Entered = false;
+let num2Entered = false;
 let operatorEntered = false;
 
 // calculation functions
@@ -79,6 +80,7 @@ numbers.addEventListener("click", (e) => {
     num1 = num1 * 10 + numberPressed;
   } else {
     operatorEntered = false;
+    num2Entered = true;
     num2 = num2 * 10 + numberPressed;
   }
   displayExpressionOnCalculator(numberPressed);
@@ -87,6 +89,10 @@ numbers.addEventListener("click", (e) => {
 operators.addEventListener("click", (e) => {
   if (operatorEntered) {
     equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
+  } else if (!operatorEntered && num2Entered) {
+    displayAnswerOnCalculator();
+    equationDisplay.textContent = "";
+    displayExpressionOnCalculator(num1);
   }
   num1Entered = true;
   operatorEntered = true;
@@ -118,6 +124,7 @@ clear.addEventListener("click", () => {
       num2 = Math.floor(num2 / 10);
       if (num2 === 0) {
         operatorEntered = true;
+        num2Entered = false;
       }
     }
     equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
