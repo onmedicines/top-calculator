@@ -85,7 +85,7 @@ numbers.addEventListener("click", (e) => {
 });
 
 operators.addEventListener("click", (e) => {
-  if (operatorEntered === true) {
+  if (operatorEntered) {
     equationDisplay.textContent = equationDisplay.textContent.slice(0, -1);
   }
   num1Entered = true;
